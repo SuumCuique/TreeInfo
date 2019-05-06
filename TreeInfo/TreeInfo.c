@@ -105,16 +105,16 @@ int main()
 		case 7:
 			int size = fileinfo->count;
 			Tree** mas = Tree_repository(fileinfo);
-			int i = 0;
+			int i = 0, prev_min=0, prev_max=0;
 			printf("%i\n", mas[0]->key);
 			do	{
 				i++;
-				for (int j = pow(2, i-1); j <= pow(2, i) && j<=size; j++)
+				for (int j = prev_min = prev_min + pow(2, i-1); j <= pow(2, i) + prev_max && j<size-1; j++)
 				{
 					printf("%i\t", mas[j]->key);
 				}
 				printf("\n");
-				
+				prev_max = pow(2, i);
 			} while (pow(2, i) + 1 <= size);
 			break;
 		}
