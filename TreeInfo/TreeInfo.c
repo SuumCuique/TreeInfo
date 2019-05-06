@@ -4,7 +4,7 @@
 #include <locale.h>
 #include <string.h>
 #include <stdlib.h>
-#include "Structure.c"
+#include "Structure.h"
 
 int main()
 {
@@ -40,7 +40,7 @@ int main()
 			scanf("%s", path);
 			Tree** mas = loadfile(path);
 			Tree* temp = malloc(sizeof(*temp));
-			for (int i = 0; i < (sizeof(*mas) / sizeof(*temp)); i++)
+			for (int i = 0; i < 3; i++)
 			{
 				printf("%i\n%s\n", mas[i]->key, mas[i]->str);
 			}

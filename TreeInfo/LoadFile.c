@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "structure.c"
+#include "Structure.h"
 
 
 Tree** loadfile(char *path)
@@ -23,9 +23,7 @@ Tree** loadfile(char *path)
 		fscanf(file, "%s\n%s", buf, strings[count_strings++]);
 		keys[count_keys++] = atoi(buf);
 
-		//отладка
-		printf("keys:%i\n", keys[count_keys - 1]);
-		printf("strings:%s\n", strings[count_strings - 1]);
+
 	}
 
 	return Tree_repository(keys, strings, count_keys);

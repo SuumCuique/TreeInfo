@@ -155,6 +155,9 @@
     <ClCompile Include="Structure.c" />
     <ClCompile Include="TreeInfo.c" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Structure.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,29 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "Structure.h"
 
-typedef struct Tree Tree;
 
-struct Tree
+Tree** Tree_repository(int *keys, char **mass, int count)
 {
-	int key;
-	Tree* left;
-	Tree* right;
-	//предыдущий проход. 0- прохода не было, 1 - проход влево, 2- проход вправо. проходы слева направо
-	//соответственно проход направо - последний
-	int prohod;
-	char *str;
-};
-
-Tree** Tree_repository(int *keys, char** strings, int count)
-{
+	char strings[100][100];
 	Tree **mas;
 	mas = malloc(sizeof(**mas)*count);
 
 	int *boool;
 	boool = malloc(sizeof(int)*count);
-	for (int i = 0; i < count; i++)boool[i] = 0;
 
-	int *temp_keys = keys;
+
+	int *temp_keys = malloc(sizeof(int)*count); 
+	for (int i = 0; i < count; i++)
+	{
+		boool[i] = 0;
+		temp_keys[i] = keys[i];
+		strcpy(strings[i], mass[i]);
+	}
+
+
 	int count_mas_el = 0;
 
 	for (int i = 0; i < count; i++)
