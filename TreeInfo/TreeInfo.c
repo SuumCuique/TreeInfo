@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <time.h>
 #include "Structure.h"
 
 FileInfo* load()
@@ -14,16 +15,21 @@ FileInfo* load()
 	printf("Введите путь к файлу: \n");
 	char path[100];
 	scanf("%s", path);
+	
+	clock_t ttime;
+	srand(time(NULL));
+	ttime = clock();
 
 	fileinfo = loadfile(path);
-	Tree** mas = Tree_repository(fileinfo);
 
+	Tree** mas = Tree_repository(fileinfo);
+	printf("time: %d\n", ttime/1000);
 	return fileinfo;
 }
 
-int count(int* keys)
+int count(FileInfo* fileinfo)
 {
-	int size = (sizeof(keys) / sizeof(int));
+	int size = fileinfo->count-1;
 	int *mas;
 	mas = malloc(size);
 	int count = 0;
@@ -36,17 +42,17 @@ int count(int* keys)
 	{
 		for (int j = 0; j <= size; j++)
 		{
-			if (keys[i] == mas[j])
+			if (fileinfo->keys[i] == mas[j])
 			{
 				b=true;
 				break;
 			}
 		}
-		if (!b)
+		if (b==false)
 		{
-			mas[count++] = keys[i];
-			b=false;
+			mas[count++] = fileinfo->keys[i];
 		}
+		b = false;
 	}
 	return count;
 }
@@ -66,57 +72,72 @@ int main()
 		printf("5.Подсчет количества групп запросов по приоритетам\n");
 		printf("6.Загрузка других данных\n");
 		printf("7.Просмотр бинарного дерева\n");
+		printf("8.Выход\n");
 
 		scanf("%i", &x);
-
+		int key, index;
 		switch (x) {
 		case 1:
-			printf("1");
+			key = 0;
+			char* str;
+			str = malloc(sizeof(char) * 100);
+			printf("Введите приоритет:");
+			scanf("%i", &key);
+			printf("Введите запрос:");
+			scanf("%s", str);
+			fileinfo->keys[fileinfo->count] = key;
+			fileinfo->strings[fileinfo->count++] = _strdup(str);
 			break;
 		case 2:
-			int index = maxindex(fileinfo->keys, fileinfo->count);
+			index = maxindex(fileinfo->keys, fileinfo->count);
 			printf("%i\t-\t%s", fileinfo->keys[index], fileinfo->strings[index]);
 			break;
 		case 3:
 			printf("Введите приоритет: ");
 			int prior;
 			scanf("%i", &prior);
-			for (int i = 0; i <= (sizeof(fileinfo->keys) / sizeof(int)); i++)
+			for (int i = 0; i <= fileinfo->count; i++)
 			{
 				if (prior == fileinfo->keys[i])
 				{
-					printf("%i\t-\t%s",fileinfo->keys[i],fileinfo->strings[i]);
+					printf("%i\t-\t%s\n",fileinfo->keys[i],fileinfo->strings[i]);
 				}
 			}
 			break;
 		case 4:
 			printf("Приоритет\t\t\tЗапрос\n");
-			for (int i = 0; i <= (sizeof(fileinfo->keys) / sizeof(int));i++)
+			for (int i = 0; i < fileinfo->count;i++)
 			{
 				printf("%i\t\t-\t\t%s\n", fileinfo->keys[i], fileinfo->strings[i]);
 			}
 			break;
 		case 5:
-			printf("Кол-во групп:%i\n", count(fileinfo->keys));
+			printf("Кол-во групп:%i\n", count(fileinfo));
 			break;
 		case 6:
 			fileinfo = load();
 			break;
 		case 7:
+			clock_t ttime;
+			srand(time(NULL));
+			ttime = clock();
 			int size = fileinfo->count;
 			Tree** mas = Tree_repository(fileinfo);
 			int i = 0, prev_min=0, prev_max=0;
 			printf("%i\n", mas[0]->key);
 			do	{
 				i++;
-				for (int j = prev_min = prev_min + pow(2, i-1); j <= pow(2, i) + prev_max && j<size-1; j++)
+				for (int j = prev_min = prev_min + pow(2, i-1); j <= pow(2, i) + prev_max && j<size; j++)
 				{
 					printf("%i\t", mas[j]->key);
 				}
 				printf("\n");
 				prev_max = pow(2, i);
 			} while (pow(2, i) + 1 <= size);
+			printf("time: %d\n",ttime/1000);
 			break;
+		case 8:
+			exit(0);
 		}
 		////////////////Конец меню/////////////////////////
 	}
