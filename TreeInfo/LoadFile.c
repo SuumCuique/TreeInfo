@@ -12,7 +12,7 @@ FileInfo* loadfile(char *path)
 	int count_keys = 0, count_strings = 0;
 	char buf[100] = "";
 
-	file = fopen("C:\\Users\\Vlad\\Desktop\\data.txt", "r"); //сюда путь не забыть вписать (path вместо прямого пути)
+	file = fopen(path, "r"); //сюда путь не забыть вписать (path вместо прямого пути)
 	for (int i = 0; i < strlen(strings[0]); i++)
 	{
 		strcpy(strings[i], "");
@@ -26,16 +26,14 @@ FileInfo* loadfile(char *path)
 
 	FileInfo* fileinfo;
 	fileinfo = malloc(sizeof(*fileinfo));
-	
 	fileinfo->keys = malloc(sizeof(int)*count_keys);
-	fileinfo->strings = malloc(sizeof(char*)*100);
+	fileinfo->strings = malloc(sizeof(char*) * 100);
 
 	for (int i = 0; i <= count_keys; i++)
 	{
 		fileinfo->strings[i] = _strdup(strings[i]);
 		fileinfo->keys[i] = keys[i];
-
 	}
-
+	fileinfo->count = count_keys;
 	return fileinfo;
 }

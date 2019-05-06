@@ -19,9 +19,10 @@ struct FileInfo
 {
 	int* keys;
 	char** strings;
+	int count;
 };
 
-Tree** Tree_repository(FileInfo* fileinfo, int count);
+Tree** Tree_repository(FileInfo* fileinfo);
 Tree* Tree_create(int index, int* temp_keys, char** strings);
 int maxindex(int *keys);
 FileInfo* loadfile(char *path);

@@ -4,26 +4,23 @@
 #include "Structure.h"
 
 
-Tree** Tree_repository(FileInfo* fileinfo, int count)
+Tree** Tree_repository(FileInfo* fileinfo)
 {
 	Tree **mas;
-	mas = malloc(sizeof(*mas)*count);
-
-	int *boool;
-	boool = malloc(sizeof(int)*count);
-
-
-	int *temp_keys = malloc(sizeof(int)*count); 
-	for (int i = 0; i <= count; i++)
-	{
-		boool[i] = 0;
-		temp_keys[i] = fileinfo->keys[i];
-	}
-
-
+	int *branch;
 	int count_mas_el = 0;
 
-	for (int i = 0; i <= count; i++)
+	mas = malloc(sizeof(*mas)*fileinfo->count);
+	branch = malloc(sizeof(int)*fileinfo->count);
+	int *temp_keys = malloc(sizeof(int)*fileinfo->count);
+
+	for (int i = 0; i <= fileinfo->count; i++)
+	{
+		branch[i] = 0;
+		temp_keys[i] = fileinfo->keys[i];
+	}
+	
+	for (int i = 0; i <= fileinfo->count; i++)
 	{
 		int index = 0;
 		index = maxindex(temp_keys);
@@ -32,8 +29,32 @@ Tree** Tree_repository(FileInfo* fileinfo, int count)
 		tree = Tree_create(index, temp_keys, fileinfo->strings);
 		temp_keys[index] = _CRT_INT_MAX;
 		mas[count_mas_el++] = tree;
+	}
+	branch[0] = 1;
+	for (int i = 0; i <= fileinfo->count; i++)
+	{
+		for (int j = 0; j <= fileinfo->count; j++)
+		{
+			if (branch[j] == 0)
+			{
+				if (mas[i]->prohod == 0)
+				{
+					mas[i]->left = mas[j];
+					mas[i]->prohod = 1;
+					branch[j] = 1;
+				}
+				else if(mas[i]->prohod == 1)
+				{
+					mas[i]->right = mas[j];
+					mas[i]->prohod = 2;
+					branch[j] = 1;
+				}
+				else mas[i]->prohod = 2;
+			}
+		}
 
 	}
+
 	return mas;
 }
 
