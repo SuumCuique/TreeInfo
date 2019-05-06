@@ -4,7 +4,7 @@
 #include <locale.h>
 #include <string.h>
 #include <stdlib.h>
-//#include "LoadTable.c"
+#include "Structure.c"
 
 int main()
 {
@@ -14,16 +14,16 @@ int main()
 		//////////////Меню///////////////////////////////
 		int x = 0;
 		printf("	\n			Выберите действие:\n1.Добавить новый элемент в очередь\n");
-		printf("2.Выборка из очереди наиболее приоритетного запроса\n");	
+		printf("2.Выборка из очереди наиболее приоритетного запроса\n");
 		printf("3.Вывод всех запросов с заданным приоритетом\n");
 		printf("4.Вывод всего содержимого очереди без учета приоритетов\n");
 		printf("5.Подсчет количества групп запросов по приоритетам\n");
 		printf("6.Загрузка таблицы очередей из файла\n");
-		
+
 		scanf("%i", &x);
-		
+
 		switch (x) {
-		case 1: 
+		case 1:
 			printf("1");
 			break;
 		case 2:
@@ -38,7 +38,12 @@ int main()
 			printf("Введите путь к файлу: \n");
 			char path[100];
 			scanf("%s", path);
-			loadfile(path);
+			Tree** mas = loadfile(path);
+			Tree* temp = malloc(sizeof(*temp));
+			for (int i = 0; i < (sizeof(*mas) / sizeof(*temp)); i++)
+			{
+				printf("%i\n%s\n", mas[i]->key, mas[i]->str);
+			}
 			break;
 		}
 		////////////////Конец меню/////////////////////////

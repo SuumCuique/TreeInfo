@@ -4,7 +4,7 @@
 #include "structure.c"
 
 
-Tree* loadfile(char *path)
+Tree** loadfile(char *path)
 {
 	FILE *file;
 	int keys[100];
@@ -24,9 +24,9 @@ Tree* loadfile(char *path)
 		keys[count_keys++] = atoi(buf);
 
 		//отладка
-		printf("keys:%i\n", keys[count_keys-1]);
-		printf("strings:%s\n", strings[count_strings-1]);
+		printf("keys:%i\n", keys[count_keys - 1]);
+		printf("strings:%s\n", strings[count_strings - 1]);
 	}
 
-	return Tree_create(keys, strings, count_keys);
+	return Tree_repository(keys, strings, count_keys);
 }
