@@ -74,7 +74,7 @@ int main()
 			printf("1");
 			break;
 		case 2:
-			int index = maxindex(fileinfo->keys);
+			int index = maxindex(fileinfo->keys, fileinfo->count);
 			printf("%i\t-\t%s", fileinfo->keys[index], fileinfo->strings[index]);
 			break;
 		case 3:

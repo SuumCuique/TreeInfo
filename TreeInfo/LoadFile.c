@@ -26,7 +26,7 @@ FileInfo* loadfile(char *path)
 
 	FileInfo* fileinfo;
 	fileinfo = malloc(sizeof(*fileinfo));
-	fileinfo->keys = malloc(sizeof(int)*count_keys);
+	fileinfo->keys = calloc(count_keys,sizeof(int));
 	fileinfo->strings = malloc(sizeof(char*) * 100);
 
 	for (int i = 0; i <= count_keys; i++)

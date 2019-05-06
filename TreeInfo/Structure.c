@@ -23,7 +23,7 @@ Tree** Tree_repository(FileInfo* fileinfo)
 	for (int i = 0; i <= fileinfo->count; i++)
 	{
 		int index = 0;
-		index = maxindex(temp_keys);
+		index = maxindex(temp_keys, fileinfo->count);
 		Tree* tree;
 		tree = malloc(sizeof(*tree));
 		tree = Tree_create(index, temp_keys, fileinfo->strings);
@@ -73,11 +73,10 @@ Tree* Tree_create(int index, int* temp_keys, char** strings)
 		return tree;
 }
 
-int maxindex(int *keys)
+int maxindex(int *keys, int size)
 {
 	int max = 0;
 	int index_max = -1;
-	int size = sizeof(keys) / sizeof(int);
 	for (int i = 0; i <= size; ++i)
 	{
 		if (keys[i] > max && keys[i]!=_CRT_INT_MAX)

@@ -24,5 +24,5 @@ struct FileInfo
 
 Tree** Tree_repository(FileInfo* fileinfo);
 Tree* Tree_create(int index, int* temp_keys, char** strings);
-int maxindex(int *keys);
+int maxindex(int *keys, int size);
 FileInfo* loadfile(char *path);
