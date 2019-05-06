@@ -4,7 +4,7 @@
 #include "Structure.h"
 
 
-Tree** loadfile(char *path)
+FileInfo* loadfile(char *path)
 {
 	FILE *file;
 	int keys[100];
@@ -22,9 +22,20 @@ Tree** loadfile(char *path)
 	{
 		fscanf(file, "%s\n%s", buf, strings[count_strings++]);
 		keys[count_keys++] = atoi(buf);
+	}
 
+	FileInfo* fileinfo;
+	fileinfo = malloc(sizeof(*fileinfo));
+	
+	fileinfo->keys = malloc(sizeof(int)*count_keys);
+	fileinfo->strings = malloc(sizeof(char*)*100);
+
+	for (int i = 0; i <= count_keys; i++)
+	{
+		fileinfo->strings[i] = _strdup(strings[i]);
+		fileinfo->keys[i] = keys[i];
 
 	}
 
-	return Tree_repository(keys, strings, count_keys);
+	return fileinfo;
 }

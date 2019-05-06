@@ -2,6 +2,8 @@
 
 typedef struct Tree Tree;
 
+typedef struct FileInfo FileInfo;
+
 struct Tree
 {
 	int key;
@@ -13,7 +15,13 @@ struct Tree
 	char *str;
 };
 
-Tree** Tree_repository(int *keys, char** strings, int count);
+struct FileInfo
+{
+	int* keys;
+	char** strings;
+};
+
+Tree** Tree_repository(FileInfo* fileinfo, int count);
 Tree* Tree_create(int index, int* temp_keys, char** strings);
 int maxindex(int *keys);
-Tree** loadfile(char *path);
+FileInfo* loadfile(char *path);

@@ -4,34 +4,32 @@
 #include "Structure.h"
 
 
-Tree** Tree_repository(int *keys, char **mass, int count)
+Tree** Tree_repository(FileInfo* fileinfo, int count)
 {
-	char strings[100][100];
 	Tree **mas;
-	mas = malloc(sizeof(**mas)*count);
+	mas = malloc(sizeof(*mas)*count);
 
 	int *boool;
 	boool = malloc(sizeof(int)*count);
 
 
 	int *temp_keys = malloc(sizeof(int)*count); 
-	for (int i = 0; i < count; i++)
+	for (int i = 0; i <= count; i++)
 	{
 		boool[i] = 0;
-		temp_keys[i] = keys[i];
-		strcpy(strings[i], mass[i]);
+		temp_keys[i] = fileinfo->keys[i];
 	}
 
 
 	int count_mas_el = 0;
 
-	for (int i = 0; i < count; i++)
+	for (int i = 0; i <= count; i++)
 	{
 		int index = 0;
 		index = maxindex(temp_keys);
 		Tree* tree;
 		tree = malloc(sizeof(*tree));
-		tree = Tree_create(index, temp_keys, strings);
+		tree = Tree_create(index, temp_keys, fileinfo->strings);
 		temp_keys[index] = _CRT_INT_MAX;
 		mas[count_mas_el++] = tree;
 
@@ -59,7 +57,7 @@ int maxindex(int *keys)
 	int max = 0;
 	int index_max = -1;
 	int size = sizeof(keys) / sizeof(int);
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i <= size; ++i)
 	{
 		if (keys[i] > max && keys[i]!=_CRT_INT_MAX)
 		{

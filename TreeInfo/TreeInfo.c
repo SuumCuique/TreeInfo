@@ -38,9 +38,11 @@ int main()
 			printf("Введите путь к файлу: \n");
 			char path[100];
 			scanf("%s", path);
-			Tree** mas = loadfile(path);
+			FileInfo* fileinfo;
+			fileinfo = loadfile(path);
+			Tree** mas = Tree_repository(fileinfo, (sizeof(fileinfo->keys)/sizeof(int)));
 			Tree* temp = malloc(sizeof(*temp));
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i <= (sizeof(fileinfo->keys) / sizeof(int)); i++)
 			{
 				printf("%i\n%s\n", mas[i]->key, mas[i]->str);
 			}
